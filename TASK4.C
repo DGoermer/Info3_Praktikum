@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include <cstdio>
 #include <cstdlib>
-
+// Hier könnte Dani Sahnes Werbung stehen
 
 #include "TASK4.H"
 
