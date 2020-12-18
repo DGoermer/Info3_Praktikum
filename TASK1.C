@@ -62,14 +62,21 @@ void demoTASK1_00(){
 }
 
 void demoTASK1_01(){
-	TASK1::BlackBoxUnsafe bs(4,4);
+	TASK1::BlackBoxUnsafe bs(8,4);
 	cout << bs.pwd_ << endl;
 
 	cout << bs.input(bs.pwd_) << endl;
 
 	return;
 }
+//neu
+void demoTASK1_02(){
 
+	TASK1::BlackBoxSafe bssafe (4,4);
+	string pwd;
+	bssafe.pwd =bssafe.pwd_;
+	cout << sha256(bssafe.pwd) << endl;
+}
 }
 
 

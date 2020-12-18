@@ -36,10 +36,11 @@ class InputTest_A : public TASK6::TestCase{
 public:
 	InputTest_A(string s) : TASK6::TestCase(s){};
 	bool testRun(){
-		TASK1::BlackBoxUnsafe  bbs(4,4);
-		cout << bbs.input("XXX") << endl;
-		if( (bbs.input("XXX")).compare("ACCESS DENIED") == 0 ){
-			return true;
+		TASK1::BlackBoxSafe bbs (4,4);
+			cout<< bbs.input("XXX")<< endl;
+			if (bbs.input("XXX").compare("ACCESS DENIED")== 0)
+		{return true;
+
 		}
 		return false;
 	}
@@ -53,6 +54,23 @@ public:
 		TASK1::BlackBoxUnsafe  bbs(4,4);
 		if( (bbs.input(bbs.pwd_)).compare("ACCESS DENIED") == 0 ){
 			return true;
+		}
+		return false;
+	}
+};
+class InputTest_C : public TASK6::TestCase{
+public:
+	InputTest_A(string s) : TASK6::TestCase(s){};
+	bool testRun(){
+		TASK1::BlackBoxSafe bssafe (4,4);
+			string pwd;
+			bssafe.pwd =bssafe.pwd_;
+			cout << sha256(bssafe.pwd) << endl;
+			bssafe.neupwd =  bssafe.input(bssafe.pwd);
+			cout << bssafe.neupwd << endl;
+			if (bssafe.input(bssafe.pwd).compare("ACCESS DENIED")== 0)
+		{return true;
+
 		}
 		return false;
 	}
