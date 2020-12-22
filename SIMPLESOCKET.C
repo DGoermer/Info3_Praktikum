@@ -192,3 +192,14 @@ string TCPserver::response(string incomingMsg){
 string TCPserver::myResponse(string input){
 	return string("NO DATA YET");
 }
+
+
+
+
+
+
+
+
+
+
+

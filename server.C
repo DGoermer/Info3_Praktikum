@@ -17,10 +17,29 @@
 #include <netinet/in.h> //contains constants and structures needed for internet domain addresses
 
 #include "SIMPLESOCKET.H"
+#include "TASK1.H"
+using namespace TASK1;
 
+class myTCPserver : public TCPserver{
+public:
+	myTCPserver(int port, int maxDataSize): TCPserver(port, maxDataSize){;};
+protected:
+	string myResponse (string input);
+
+};
 
 int main(){
 	srand(time(nullptr));
-	TCPserver srv(2022,25);
+	myTCPserver srv(2024,25);
 	srv.run();
+}
+
+string myTCPserver::myResponse(string input){
+	string response("UNKOWN COMMAND");
+	if (input.compare (0,3,"ABC")==0)
+	{response= string("die Kaze lief im Schnee");
+	};
+
+
+	return response;
 }
