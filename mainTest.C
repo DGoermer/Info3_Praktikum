@@ -58,23 +58,7 @@ public:
 		return false;
 	}
 };
-class InputTest_C : public TASK6::TestCase{
-public:
-	InputTest_A(string s) : TASK6::TestCase(s){};
-	bool testRun(){
-		TASK1::BlackBoxSafe bssafe (4,4);
-			string pwd;
-			bssafe.pwd =bssafe.pwd_;
-			cout << sha256(bssafe.pwd) << endl;
-			bssafe.neupwd =  bssafe.input(bssafe.pwd);
-			cout << bssafe.neupwd << endl;
-			if (bssafe.input(bssafe.pwd).compare("ACCESS DENIED")== 0)
-		{return true;
 
-		}
-		return false;
-	}
-};
 
 
 int main(){
