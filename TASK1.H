@@ -104,17 +104,8 @@ protected:
 class BlackBoxSafe : public BlackBoxUnsafe{
 	/// \todo  Implementation of class BlackBoxSafe needs to be finalized.
 public:
-	BlackBoxSafe(int pwdLength, int symbSetSize) : BlackBoxUnsafe(pwdLength, symbSetSize){
-		};
-	string pwd;
-	string neupwd;
-	string sicherspwd;
-
-	virtual string input(string strPwd)
-	{
-		return string("undefined");
-
-	}
+	BlackBoxSafe(int pwdLength, int symbSetSize) : BlackBoxUnsafe(pwdLength, symbSetSize){;};
+	virtual string input(string strPwd){return string("undefined");};
 };
 
 
@@ -134,7 +125,7 @@ void demoTASK1_00();
  *
  */
 void demoTASK1_01();
-void demoTASK1_02();
+
 } // end namespace TASK1
 
 
