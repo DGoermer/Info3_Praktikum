@@ -36,10 +36,11 @@ class InputTest_A : public TASK6::TestCase{
 public:
 	InputTest_A(string s) : TASK6::TestCase(s){};
 	bool testRun(){
-		TASK1::BlackBoxUnsafe  bbs(4,4);
-		cout << bbs.input("XXX") << endl;
-		if( (bbs.input("XXX")).compare("ACCESS DENIED") == 0 ){
-			return true;
+		TASK1::BlackBoxSafe bbs (4,4);
+			cout<< bbs.input("XXX")<< endl;
+			if (bbs.input("XXX").compare("ACCESS DENIED")== 0)
+		{return true;
+
 		}
 		return false;
 	}
@@ -57,6 +58,7 @@ public:
 		return false;
 	}
 };
+
 
 
 int main(){
