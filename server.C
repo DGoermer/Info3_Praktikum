@@ -17,9 +17,36 @@
 #include <netinet/in.h> //contains constants and structures needed for internet domain addresses
 
 #include "SIMPLESOCKET.H"
+
+#include "SHA256.H"
+#include <iostream>
+#include "TASK1.H"
+#include <string>
+#include <iostream>
+
+#include <cstdio>      /* printf, NULL */
+#include <cstdlib>     /* srand, rand */
+#include <ctime>       /* time */
+
+#include <string>
+#include <iostream>
+
+#include <cstdio>      /* printf, NULL */
+#include <cstdlib>     /* srand, rand */
+#include <ctime>       /* time */
+
+#include <unistd.h>
+
+#include "SHA256.H"
 #include "TASK1.H"
 
-#include <iostream>
+#include "TASK2.H"
+#include "TASK3.H"
+#include "TASK4.H"
+#include "TASK5.H"
+#include "TASK6.H"
+
+
 
 using namespace TASK1;
 using namespace std;
@@ -34,8 +61,9 @@ protected:
 
 int main(){
 	srand(time(nullptr));
-	myTCPserver srv(2032,25);
+	myTCPserver srv(2034,25);
 	srv.run();
+
 }
 /*
  * "PWD[<pwd>]" <pwd> ...passwort
@@ -55,6 +83,8 @@ string myTCPserver::myResponse(string input){
 	bool success = false;
 	int a,b;
 	int strlenght=0;
+	string pwd="";
+
 
 	if (input.compare(0,4,"PWD[") == 0){
 		//password received
@@ -79,8 +109,16 @@ string myTCPserver::myResponse(string input){
 
 		cout << "pwd lenght = "  << a << " alphabet lenght= " <<b <<endl;
 
-		response = string ("OKAY");
-	}else {
+		response = string ("OKAY");}
+
+	else if ( input.compare ( 0,4,"NEW[")== 0 ){
+
+	cout<< "Es klappt!";
+	response= string("Es klappt !");
+TASK1::demoTASK1_00();
+
+	}
+	else {
 		response = string("UNKOWN COMMAND" ) ;
 	}
 	return response;	}

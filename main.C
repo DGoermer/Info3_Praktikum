@@ -28,6 +28,11 @@ using namespace std;
 
 int main(){
 	srand(time(nullptr));
+	TASK1::demoTASK1_00();
+
+	//cout << "/n /n /n";
+
+TASK1::demoTASK1_01();
 
     return 0;
 }
