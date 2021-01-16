@@ -58,11 +58,15 @@ protected:
 	string myResponse (string input);
 
 };
+string pwd="";
 
 int main(){
 	srand(time(nullptr));
+
 	myTCPserver srv(2034,25);
 	srv.run();
+
+
 
 }
 /*
@@ -83,7 +87,8 @@ string myTCPserver::myResponse(string input){
 	bool success = false;
 	int a,b;
 	int strlenght=0;
-	string pwd="";
+	string guess="";
+
 
 
 	if (input.compare(0,4,"PWD[") == 0){
@@ -111,13 +116,36 @@ string myTCPserver::myResponse(string input){
 
 		response = string ("OKAY");}
 
-	else if ( input.compare ( 0,4,"NEW[")== 0 ){
+	else if ( input.compare ( 0,10,"NEWUNSAFE[")== 0 ){
+		sscanf ( input.c_str(),"NEWUNSAFE[%d,%d]",&a,&b);
 
-	cout<< "Es klappt!";
-	response= string("Es klappt !");
-TASK1::demoTASK1_00();
+	BlackBoxUnsafe bbu (a,b);
+	pwd=bbu.pwd_;
+
+	cout <<" Länge des PWD:" << a <<  "    Alphabet:" << b << endl
+			<<"Das generierte PWD:    " <<pwd << endl << endl << endl ;
+
+	response= string("Generiert.");
+//TASK1::demoTASK1_01();
 
 	}
+	else if (input.compare(0,6,"GUESS[") == 0){
+		char guess [32]="";
+		sscanf(input.c_str(),"GUESS[%s]",guess);
+		strlenght = strlen(guess)-1;
+
+				guess[strlenght]='\0';
+
+				if(guess==pwd){
+				cout << "RICHTIG " << endl ;
+				response=string("RIGHT");
+				}
+				else{cout << "FALSCH" << endl;
+				response= string("WRONG");
+				}
+	}
+
+
 	else {
 		response = string("UNKOWN COMMAND" ) ;
 	}
