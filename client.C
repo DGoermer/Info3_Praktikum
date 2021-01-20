@@ -80,7 +80,7 @@ int main() {
 		}else{
 			msg = string("client wants this");
 		}
-		cout << "client sends:" << newmsg << endl;
+		cout << "client sends:" << newmsg << endl; 			//übergabe von allen möglichkeiten an den server
 		c.sendData(newmsg);
 		msg = c.receive(32);
 		cout << "got response:" << newmsg << endl;
