@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
-
+#include <cstdio>
 #include "TASK1.H"
 #include "SHA256.H"
 
@@ -51,6 +51,47 @@ string BlackBoxUnsafe::randomPwd(int l){
 	return pwd_;
 }
 
+/**
+ *
+ * Neue methode zum Passwort erraten
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+string PwdErraten::Bruteforce(string const& chars, size_t max_len, string const& cur){
+	string next;
+	string pwd;
+	int i= 0;
+		if (cur.length()== max_len){
+			return next;
+		}
+			else
+			{
+				for (auto c : chars)
+				{
+
+					string next =cur + c;
+
+					Bruteforce(chars,max_len,next);
+
+			}
+
+		}
+		return pwd;
+	}
+
+
+
+
+
+
+
+
 void demoTASK1_00(){
 	string pwd("meinpassword");
 	cout << "pwd   : " << pwd << endl;
@@ -69,6 +110,7 @@ void demoTASK1_01(){
 
 	return;
 }
+
 
 }
 

@@ -108,6 +108,11 @@ public:
 	virtual string input(string strPwd){return string("undefined");};
 };
 
+class PwdErraten{
+
+public:
+	string Bruteforce(string const& chars, size_t max_len, string const& cur);
+};
 
 
 

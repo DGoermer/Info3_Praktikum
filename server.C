@@ -63,7 +63,7 @@ string pwd="";
 int main(){
 	srand(time(nullptr));
 
-	myTCPserver srv(2034,25);
+	myTCPserver srv(2024,25);
 	srv.run();
 
 
