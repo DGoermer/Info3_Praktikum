@@ -153,7 +153,7 @@ string myTCPserver::myResponse(string input){
 						guess[strlenght]='\0';
 
 
-			cout <<" DAs eingegenangende PWD : " << guess ;
+			cout <<" Das eingegenangende PWD : \t" << guess ;
 
 			response= BBS->check(guess);
 

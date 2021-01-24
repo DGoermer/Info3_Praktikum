@@ -89,39 +89,6 @@ string BlackBoxSafe::check(string pwd){
 
 
 
-/**
- *
- * Neue methode zum Passwort erraten
- *
- *
- *
- *
- *
- *
- *
- *
- */
-string PwdErraten::Bruteforce(string const& chars, size_t max_len, string const& cur){
-	string next;
-	string pwd;
-	int i= 0;
-		if (cur.length()== max_len){
-			return next;
-		}
-			else
-			{
-				for (auto c : chars)
-				{
-
-					string next =cur + c;
-
-					Bruteforce(chars,max_len,next);
-
-			}
-
-		}
-		return pwd;
-	}
 
 
 
