@@ -56,13 +56,16 @@ protected:
 };
 string pwd="";
 int serverport  =2034;
+BlackBoxSafe* BBS =nullptr;
 int main(){
+
+
 	cout << endl << " Hallo ! " << endl << " Bitte geben sie die Portnummer ein :  " ;
 	cin >> serverport;
 	srand(time(nullptr));
 	myTCPserver srv(serverport,25);
 	srv.run();
-	cout << "Der Server mit dem Port >" << serverport << "< wurde gestartet!";
+
 
 
 
@@ -124,12 +127,41 @@ string myTCPserver::myResponse(string input){
 			<<"Das generierte PWD:    " <<pwd << endl << endl << endl ;
 
 	response= string("Generiert.");
-//TASK1::demoTASK1_01();
+	}
+
+
+	else if ( input.compare ( 0,8,"NEWSAFE[")== 0 ){
+			sscanf ( input.c_str(),"NEWSAFE[%d,%d]",&a,&b);
+			delete BBS;
+		BBS= new BlackBoxSafe(a,b);
+		cout << " das PWD :" << BBS->pwd_;
+
+
+		cout <<" Länge des PWD:" << a <<  "    Alphabet:" << b << endl
+				<<"Der generierte SHA:    " <<BBS->BlackBoxSafe_sha << endl << endl << endl ;
+
+		response= string("Generiert.");
+	//TASK1::demoTASK1_01();
+}
+
+
+	else if (input.compare(0,10,"GUESSSAFE[") == 0){
+		char guess [32]="";
+				sscanf(input.c_str(),"GUESSSAFE[%s]",guess);
+				strlenght = strlen(guess)-1;
+
+						guess[strlenght]='\0';
+
+
+			cout <<" DAs eingegenangende PWD : " << guess ;
+
+			response= BBS->check(guess);
 
 	}
-	else if (input.compare(0,6,"GUESS[") == 0){
+
+	else if (input.compare(0,12,"GUESSUNSAFE[") == 0){
 		char guess [32]="";
-		sscanf(input.c_str(),"GUESS[%s]",guess);
+		sscanf(input.c_str(),"GUESSUNSAFE[%s]",guess);
 		strlenght = strlen(guess)-1;
 
 				guess[strlenght]='\0';
@@ -139,7 +171,7 @@ string myTCPserver::myResponse(string input){
 				response=string("RIGHT");
 				}
 				else{cout << "FALSCH" << endl;
-				response= string("WRONG");
+				response= string("WRONG \n ");
 				}
 	}
 

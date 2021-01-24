@@ -51,6 +51,44 @@ string BlackBoxUnsafe::randomPwd(int l){
 	return pwd_;
 }
 
+
+/**
+ * Implementiertung der Methode " check " von der Klasse BlackBoxSafe
+ * Hier wird der eingegebene String überprüft. wenn dieser == des gespeicherten PWD ist wird RIGHT ausgegeben
+ * sonst WRONG.
+ *
+ *
+
+ */
+
+
+
+
+
+string BlackBoxSafe::check(string pwd){
+
+	string inputpwd = sha256 (pwd);
+
+
+		if(BlackBoxSafe_sha.compare(inputpwd) == 0){
+				return string("RIGHT");}
+
+
+	return string("WRONG");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  *
  * Neue methode zum Passwort erraten
