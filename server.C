@@ -40,11 +40,7 @@
 #include "SHA256.H"
 #include "TASK1.H"
 
-#include "TASK2.H"
-#include "TASK3.H"
-#include "TASK4.H"
-#include "TASK5.H"
-#include "TASK6.H"
+
 
 
 
@@ -59,12 +55,14 @@ protected:
 
 };
 string pwd="";
-
+int serverport  =2034;
 int main(){
+	cout << endl << " Hallo ! " << endl << " Bitte geben sie die Portnummer ein :  " ;
+	cin >> serverport;
 	srand(time(nullptr));
-
-	myTCPserver srv(2024,25);
+	myTCPserver srv(serverport,25);
 	srv.run();
+	cout << "Der Server mit dem Port >" << serverport << "< wurde gestartet!";
 
 
 

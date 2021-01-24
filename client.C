@@ -26,6 +26,9 @@ using namespace std;
 
 
 int main() {
+	int serverport;
+	cout << " Willkommen im Client ! " << endl << "Bitte geben sie den Port des Servers ein:  ";
+	cin >> serverport;
 	srand(time(NULL));
 	TCPclient c;
 	string host = "localhost";
@@ -44,7 +47,7 @@ int main() {
 	string a,b;
 	int brute_zahl;
 	//connect to host
-	c.conn(host , 2024);
+	c.conn(host , serverport);
 
 	TASK1::PwdErraten methode_1;
 	int i=0;
