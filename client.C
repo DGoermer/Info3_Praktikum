@@ -127,8 +127,8 @@ int main(int argc, char *argv[]) {
 
 
 				ss.str("");
-				//ss<<"NEWSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
-				ss<<"NEWUNSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
+				ss<<"NEWSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
+				//ss<<"NEWUNSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
 				c.sendData(ss.str());
 				servermsg =c.receive(32);
 				cout<< servermsg;
@@ -159,18 +159,21 @@ int bruteforce(int length,string alphabet, int alphabetlaenge,
 	{
 		newpwd = partofpwd+lang[i];
 
-		//pwd<<"GUESSSAFE["<<newpwd<<"]";
-		pwd<<"GUESSUNSAFE["<<newpwd<<"]";
+		pwd<<"GUESSSAFE["<<newpwd<<"]";
+		//pwd<<"GUESSUNSAFE["<<newpwd<<"]";
 		c.sendData(pwd.str());
 		counter++;
-		serverans=c.receive(50);
+		pwd.str("");
+		serverans=c.receive(16);
+		cout <<serverans<<endl;
 		sleep(0);
 
 
-	if(serverans=="RICHTIG")
+	if(serverans=="RIGHT")
 	{
 		pfound=1;
-		cout<<partofpwd+alphabet[i];
+		cout<<newpwd;
+		cout <<"Gebrauchte Versuche: "<<counter<<"."<<endl;
 		return counter;
 
 	}
