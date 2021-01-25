@@ -88,6 +88,7 @@ int main(int argc, char *argv[]) {
 	long avaragetime = 0;
 	int averagetries = 0;
 	string servermsg;
+	//begin:
 	cout<<"Bitte geben sie Pwdlaenge ein"<<endl;
 	cin>>pwdlaenge;
 	cout<<"Bitte geben sie alphabetlange ein"<<endl;
@@ -108,8 +109,7 @@ int main(int argc, char *argv[]) {
 		{
 			for(int k=0;k<wiederholungen;k++)
 			{
-				while(1)
-				{
+
 
 				if (servermsg == "Generiert."){
 
@@ -118,12 +118,17 @@ int main(int argc, char *argv[]) {
 
 					versuche=bruteforce(pwdlaenge,alphabet,alphabetlaenge,c,"",0,0,pfound);
 					//cout <<"Versuche"<<versuche<<endl;
-
-
-
 				}
+
+
+
+
+
+
+
+
 				else
-				{
+					{
 
 
 				ss.str("");
@@ -131,10 +136,11 @@ int main(int argc, char *argv[]) {
 				//ss<<"NEWUNSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
 				c.sendData(ss.str());
 				servermsg =c.receive(32);
+
 				cout<< servermsg;
 				sleep(1);
-				}
-				}
+					}
+
 
 
 
@@ -174,6 +180,7 @@ int bruteforce(int length,string alphabet, int alphabetlaenge,
 		pfound=1;
 		cout<<newpwd;
 		cout <<"Gebrauchte Versuche: "<<counter<<"."<<endl;
+		sleep(100);
 		return counter;
 
 	}
