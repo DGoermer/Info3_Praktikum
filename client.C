@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 	//connect to host
 	c.conn(host , serverport);
 	begin:
-	//TASK1::PwdErraten PWDmethode;
+
 	int versuche = 0;
 
 	bool pfound = 0;
@@ -68,10 +68,6 @@ int main(int argc, char *argv[]) {
 	string alphabet= "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
 	stringstream ss;
 	string tmp;
-	timeval start,end;
-	int time;
-	long avaragetime = 0;
-	int averagetries = 0;
 	string servermsg;
 
 	cout<<"Bitte geben sie Pwdlaenge ein"<<endl;
@@ -106,7 +102,7 @@ int main(int argc, char *argv[]) {
 									ss.str("");
 
 									cout<< servermsg;
-									sleep(1);
+
 
 
 
@@ -147,24 +143,7 @@ int main(int argc, char *argv[]) {
 
 
 
-				/*else
-					{
 
-
-				ss.str("");
-				ss<<"NEWSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
-				//ss<<"NEWUNSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
-				c.sendData(ss.str());
-				servermsg =c.receive(32);
-
-				cout<< servermsg;
-				sleep(1);
-					}
-
-				*/
-
-
-			sleep(0);
 
 
 		}
@@ -193,7 +172,7 @@ int bruteforce(int length,string alphabet, int alphabetlaenge,
 		pwd.str("");
 		serverans=c.receive(16);
 		cout <<serverans<<endl;
-		sleep(0);
+
 
 
 	if(serverans=="RIGHT")
@@ -201,7 +180,7 @@ int bruteforce(int length,string alphabet, int alphabetlaenge,
 		pfound=1;
 		cout<<"das erratende Passwort ist : \t"<<newpwd<<endl;
 		cout <<"Gebrauchte Versuche: \t"<<counter<<"."<<endl;
-		//sleep(100);
+
 
 		return counter;
 
@@ -219,7 +198,7 @@ int bruteforce(int length,string alphabet, int alphabetlaenge,
 		}
 	}
 
-	sleep(0);
+
 	}
 	return counter;
 }
