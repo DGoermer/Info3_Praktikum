@@ -46,11 +46,56 @@
 
 using namespace TASK1;
 using namespace std;
-
+/**
+ *
+ * \brief KLasse myTCPserver
+ * Mit dieser klasse wird ein TCP Server erstellt.
+ *
+ */
 class myTCPserver : public TCPserver{
 public:
+	/**
+	 *
+	 *Konstruktor (int port, int maxDataSize)
+	 *		Mit dem Konstruktor wird Objekt der Klasse erstellt.
+ 	 *		int port <-- Portnummer des TCP Servers
+ 	 *		int maxDataSize <-- Hier die maximale Anzahl der Chars angegeben, welche in einer Übertragung übertragen werden sollen.
+	 *
+	 */
 	myTCPserver(int port, int maxDataSize): TCPserver(port, maxDataSize){;};
 protected:
+
+	/**
+	 *
+	 *
+	 *  \brief   myTCPserver::myResponse
+	 *
+	 * Hier wurde das Serverseitige Protokoll implementiert.
+	 *
+	 *  UNSAFE:
+	 *
+	 *  NEWUNSAFE[int pwdlänge,int alphabetlänge]
+	 *  Mithilfe dieser Eingabe wird ein Passwort erstellt, welches NICHT mit SHA256 verschlüsselt wurde.
+	 *  Als Eingabe Parameter werden hier die länge des Passwortes (mindestens 4 lang) und die größe des Alphabeths (mindestens 1) benötigt.
+	 *
+	 *  GUESSUNAFE[pwd]
+	 *
+	 *  Mithilfe dieser Eingabe wird dem Server ein Passwort übergeben, welches mit dem zuvor in NEWUNSAFE verglichen wird.
+	 *  wenn dieses indentisch ist, gibt der Server "RIGHT" aus. Falls dies nicht der Fall ist wird "WRONG" ausgegeben.
+	 *
+	 *
+	 * SAFE:
+	 *
+	 * NEWSAFE[int pwdlänge,int alphabetlänge]
+	 * Mithilfe dieser Eingabe wird ein Passwort erstellt, welches durch SHA256 verschlüsselt ist.
+	 * Als Eingabe Parameter werden hier die länge des Passwortes (mindestens 4 lang) und die größe des Alphabeths (mindestens 1) benötigt.
+	 *
+	 * GUESSSAFE[pwd]
+	 * Mithilfe dieser Eingabe wird dem Server ein Passwort übegeben, welches dann durch SHA256 in ein Hash-Wert umgewandelt wird,
+	 * um es mit dem Abgespeicherten Hash-Wert zu vergleichen.
+	 * wenn dieses indentisch ist, gibt der Server "RIGHT" aus. Falls dies nicht der Fall ist wird "WRONG" ausgegeben.
+	 *
+	 */
 	string myResponse (string input);
 
 };
@@ -70,21 +115,11 @@ int main(){
 
 
 }
-/*
- * "PWD[<pwd>]" <pwd> ...passwort
- * "NEWBOX [<pwd lenght>,<alphabet>] "   <pwd lenght> ...
- * 								<alphabet lenght>....
- *
- *
- *
- *
- *
- *
- */
+
 
 
 string myTCPserver::myResponse(string input){
-	string response("UNKOWN COMMAND");
+	string response("UNKNOWN COMMAND");
 	bool success = false;
 	int a,b;
 	int strlenght=0;
@@ -171,7 +206,7 @@ string myTCPserver::myResponse(string input){
 				response=string("RIGHT");
 				}
 				else{cout << "FALSCH" << endl;
-				response= string("WRONG \n ");
+				response= string("WRONG");
 				}
 	}
 

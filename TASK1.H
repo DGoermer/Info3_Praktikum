@@ -91,33 +91,34 @@ protected:
 	int    lengthSymbArray_;
 };
 
+
+
+
+
+
 /**
- *
- class BlackBoxSafe : public IBlackBox{}
- *
- * \brief Implements a more safe password checker where only the
- * password's checksum is stored.
- *
- * Notice, implementation is not finished.
- *
- *
+ * \brief BlackBoxSafe
+ *  Mit der Klasse wird ein schwieriger zu knackendes Passwort implementiert.
+ *  Hier ist das Klartextpasswort eine private variable.
+ *  Von außen kann nur auf die Checksumme (SHA256) zugegriffen werden.
  */
 
-
-
-
-
-
-
 class BlackBoxSafe : public BlackBoxUnsafe{
-	/// \todo  Implementation of class BlackBoxSafe needs to be finalized.
+
 public:
 	BlackBoxSafe(int pwdLength, int symbSetSize) : BlackBoxUnsafe(pwdLength, symbSetSize){
 		BlackBoxSafe_pwd=pwd_;
 		BlackBoxSafe_sha= sha256 (pwd_); };
 
 
-
+/**
+ * \brief Blackboxsafe::check(string pwd)
+ * Mithilfe dieser Methode wird das eingegebene Passwort in eine Prüfsumme gewandelt, welche anschließend mit
+ * der in der Klasse hinterlegten Prüfsumme verglichen wird.
+ * Wenn die beiden Prüfsummen gleich sind, wird ein "RIGHT" zurück gegeben. Falls dies nicht der Fall ist, wird ein
+ * "WRONG" zurückgegeben.
+ *
+ */
 	string check (string input);
 	string BlackBoxSafe_sha;
 
