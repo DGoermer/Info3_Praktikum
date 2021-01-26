@@ -44,40 +44,25 @@ int main(int argc, char *argv[]) {
 	alphabetlaenge=(unsigned short) atoi(argv[4]);
 	pwdlaenge = (unsigned short) atoi(argv[5]);
 	duration = (unsigned short) atoi(argv[3]);
-	int wiederholungen = 10;
+	string wahl;
 	cout << " Willkommen im Client ! " << endl << "Bitte geben sie den Port des Servers ein:  ";
 	cin >> serverport;
 
 	srand(time(NULL));
 
 
-
+	int number = 0;
 
 
 	host = "localhost";
 
-	/*string msg;
-	string newmethode;
-	string methode;
-	string newmsg;
-	string pwd;
-	string auswahl;
-	string servermsg;
-	string newerat;
-	std::string::size_type sz;
 
-	char input[] = "NEWSAFE[";
-	char guess[] = "GUESSSAFE[";
-	char end[] = "]";
-	char komma[] = ",";
-	string a,b;
-	int brute_zahl;*/
 	//connect to host
 	c.conn(host , serverport);
-
+	begin:
 	//TASK1::PwdErraten PWDmethode;
-	int versuche;
-	int number = 0;
+	int versuche = 0;
+
 	bool pfound = 0;
 
 	string alphabet= "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
@@ -88,7 +73,7 @@ int main(int argc, char *argv[]) {
 	long avaragetime = 0;
 	int averagetries = 0;
 	string servermsg;
-	//begin:
+
 	cout<<"Bitte geben sie Pwdlaenge ein"<<endl;
 	cin>>pwdlaenge;
 	cout<<"Bitte geben sie alphabetlange ein"<<endl;
@@ -103,31 +88,66 @@ int main(int argc, char *argv[]) {
 	}
 
 		ss.str("");
+		fstream f;
+		f.open("PASSWORTAUSWERTUNG_BOXSAFE.dat",ios::out|ios::app);
+		f<<"Passwortlaenge "<<"Alphabetgröße "<<"Versuche "<<"\n";
 	for(int i=1;i<pwdlaenge;i++)
 	{
 		for(int j = 1;j<=alphabetlaenge;j++)
 		{
-			for(int k=0;k<wiederholungen;k++)
-			{
+
+				while(1)
+				{
+									ss.str("");
+									ss<<"NEWSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
+									//ss<<"NEWUNSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
+									c.sendData(ss.str());
+									servermsg =c.receive(32);
+									ss.str("");
+
+									cout<< servermsg;
+									sleep(1);
+
 
 
 				if (servermsg == "Generiert."){
+					break;
+				}
+				else{
 
+					continue;
+				}
+				}
 					ss.str("");
 					number++;
 
 					versuche=bruteforce(pwdlaenge,alphabet,alphabetlaenge,c,"",0,0,pfound);
+
+
 					//cout <<"Versuche"<<versuche<<endl;
-				}
+
+					pfound=0;
+
+					cout<<"Passwortnummer: \t"<<number<<" Länge: \t"<<pwdlaenge<<" Alphabetlänge \t"<<alphabetlaenge<<" Versuche \t"<<versuche<<endl;
+
+					cout <<"Wollen sie ein neues PASSWORT erraten JA oder das PROGRAMM beenden NEIN"<<endl;
+					cin>> wahl;
+
+					f<<pwdlaenge<<"\t\t"<<alphabetlaenge<<"\t\t"<<versuche<<"\n ";
+
+					if((wahl=="JA")||(wahl=="ja"))
+					{
+					goto begin;
+					}
+					else
+					{
+						f.close();
+						exit(0);
+					}
 
 
 
-
-
-
-
-
-				else
+				/*else
 					{
 
 
@@ -141,17 +161,18 @@ int main(int argc, char *argv[]) {
 				sleep(1);
 					}
 
-
+				*/
 
 
 			sleep(0);
 
+
 		}
+
+
+
 	}
 
-	return 0;
-
-}
 }
 int bruteforce(int length,string alphabet, int alphabetlaenge,
 		TCPclient c, string partofpwd,int number , int counter, bool &pfound)
@@ -178,9 +199,10 @@ int bruteforce(int length,string alphabet, int alphabetlaenge,
 	if(serverans=="RIGHT")
 	{
 		pfound=1;
-		cout<<newpwd;
-		cout <<"Gebrauchte Versuche: "<<counter<<"."<<endl;
-		sleep(100);
+		cout<<"das erratende Passwort ist : \t"<<newpwd<<endl;
+		cout <<"Gebrauchte Versuche: \t"<<counter<<"."<<endl;
+		//sleep(100);
+
 		return counter;
 
 	}
