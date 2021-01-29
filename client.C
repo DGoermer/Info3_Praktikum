@@ -25,119 +25,137 @@
 
 using namespace TASK1;
 using namespace std;
-int serverport;
-string host;
-int duration;
-int alphabetlaenge;
+int globe_const_serverport;
+string globe_const_host;
+int globe_const_alphabetlaenge;
 
-int pwdlaenge;
+int globe_const_pwdlaenge;
 TCPclient c;
-int bruteforce(int length,string alphabet, int alphabetlaenge,
-		TCPclient connection, string partofpwd,int number , int counter, bool &pfound);
+int bruteforce(int loc_var_length,string loc_var_alphabet, int loc_var_alphabetlaenge,
+		TCPclient loc_var_connection, string loc_var_partofpwd,int loc_var_number , int loc_var_counter, bool &loc_var_pfound);
 
 
 
 
 
 int main(int argc, char *argv[]) {
-	serverport = (unsigned short) atoi(argv[3]);
-	alphabetlaenge=(unsigned short) atoi(argv[4]);
-	pwdlaenge = (unsigned short) atoi(argv[5]);
-	duration = (unsigned short) atoi(argv[3]);
+	globe_const_serverport = (unsigned short) atoi(argv[3]);
+	globe_const_alphabetlaenge=(unsigned short) atoi(argv[4]);
+	globe_const_pwdlaenge = (unsigned short) atoi(argv[5]);
+
 	string wahl;
 	cout << " Willkommen im Client ! " << endl << "Bitte geben sie den Port des Servers ein:  ";
-	cin >> serverport;
+	cin >> globe_const_serverport;
 
 	srand(time(NULL));
 
 
-	int number = 0;
+	int loc_var_number = 0;
 
 
-	host = "localhost";
+	globe_const_host = "localhost";
 
 
 	//connect to host
-	c.conn(host , serverport);
+	c.conn(globe_const_host , globe_const_serverport);
 	begin:
 
-	int versuche = 0;
+	int loc_var_versuche = 0;
 
-	bool pfound = 0;
+	bool loc_var_pfound = 0;
 
-	string alphabet= "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
-	stringstream ss;
-	string tmp;
-	string servermsg;
+	string loc_var_alphabet= "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
+	stringstream loc_var_ss;
 
+	string loc_var_servermsg;
+
+
+	/*
+		 *
+		 * Passwortlänge und Alphabetlänge werden abgefragt für die Passwort Erzeugung
+		 *
+		 * */
 	cout<<"Bitte geben sie Pwdlaenge ein"<<endl;
-	cin>>pwdlaenge;
+	cin>>globe_const_pwdlaenge;
 	cout<<"Bitte geben sie alphabetlange ein"<<endl;
-	cin>> alphabetlaenge;
+	cin>> globe_const_alphabetlaenge;
 
 
 
-	if (alphabetlaenge >=alphabet.length())
+	if (globe_const_alphabetlaenge >=loc_var_alphabet.length())
 
 	{
-		alphabetlaenge=alphabet.length()-1;
+		globe_const_alphabetlaenge=loc_var_alphabet.length()-1;
 	}
 
-		ss.str("");
+
+		loc_var_ss.str("");
 		fstream f;
-		f.open("PASSWORTAUSWERTUNG_BOXSAFE.dat",ios::out|ios::app);
-		f<<"Passwortlaenge "<<"Alphabetgröße "<<"Versuche "<<"\n";
-	for(int i=1;i<pwdlaenge;i++)
+		f.open("PASSWORTAUSWERTUNG_BOXSAFE.dat",ios::out|ios::app);		//Datei zum beschreiben wird geöffnet damit alle Ergebnis saubergemäß abgespeichert werden
+		f<<"Passwortlaenge "<<"Alphabetgröße "<<"versuche "<<"\n";
+	for(int i=1;i<globe_const_pwdlaenge;i++)
 	{
-		for(int j = 1;j<=alphabetlaenge;j++)
+		for(int j = 1;j<=globe_const_alphabetlaenge;j++)
 		{
 
 				while(1)
 				{
-									ss.str("");
-									ss<<"NEWSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
+									loc_var_ss.str("");
+									loc_var_ss<<"NEWSAFE["<<globe_const_pwdlaenge<<","<<globe_const_alphabetlaenge<<"]";
 									//ss<<"NEWUNSAFE["<<pwdlaenge<<","<<alphabetlaenge<<"]";
-									c.sendData(ss.str());
-									servermsg =c.receive(32);
-									ss.str("");
+									c.sendData(loc_var_ss.str());
+									loc_var_servermsg =c.receive(32);
+									loc_var_ss.str("");
 
-									cout<< servermsg;
-
-
+									cout<< loc_var_servermsg;
 
 
-				if (servermsg == "Generiert."){
-					break;
+
+
+									if (loc_var_servermsg == "Generiert.")
+									{
+										break;
+									}
+
+									else
+									{
+
+										continue;
+
+									}
 				}
-				else{
+					/*
+					 * Bruteforce wird ausgeführt wenn ein Passwort generiert ist
+					 *
+					 */
+					loc_var_ss.str("");
+					loc_var_number++;
 
-					continue;
-				}
-				}
-					ss.str("");
-					number++;
-
-					versuche=bruteforce(pwdlaenge,alphabet,alphabetlaenge,c,"",0,0,pfound);
+					loc_var_versuche=bruteforce(globe_const_pwdlaenge,loc_var_alphabet,globe_const_alphabetlaenge,c,"",0,0,loc_var_pfound);
 
 
 					//cout <<"Versuche"<<versuche<<endl;
 
-					pfound=0;
-
-					cout<<"Passwortnummer: \t"<<number<<" Länge: \t"<<pwdlaenge<<" Alphabetlänge \t"<<alphabetlaenge<<" Versuche \t"<<versuche<<endl;
+					loc_var_pfound=0;
+					/*
+					 *
+					 * Erratendes Passwort wird ausgegeben und anschließend wird ma gefragt ob ein neues Passwort erzeuget werden soll
+					 */
+					cout<<"Passwortnummer: \t"<<loc_var_number<<" Länge: \t"<<globe_const_pwdlaenge<<" Alphabetlänge \t"<<globe_const_alphabetlaenge<<" Versuche \t"<<loc_var_versuche<<endl;
 
 					cout <<"Wollen sie ein neues PASSWORT erraten JA oder das PROGRAMM beenden NEIN"<<endl;
 					cin>> wahl;
 
-					f<<pwdlaenge<<"\t\t"<<alphabetlaenge<<"\t\t"<<versuche<<"\n ";
+					f<<globe_const_pwdlaenge<<"\t\t"<<globe_const_alphabetlaenge<<"\t\t"<<loc_var_versuche<<"\n ";
 
 					if((wahl=="JA")||(wahl=="ja"))
 					{
-					goto begin;
+						goto begin;	// Springt an den Anfang des Programms zur wiederholten Ausführung
 					}
+
 					else
 					{
-						f.close();
+						f.close();	//Ergebnis wird in einer Datei abgespeichert
 						exit(0);
 					}
 
@@ -152,55 +170,62 @@ int main(int argc, char *argv[]) {
 
 	}
 
-}
-int bruteforce(int length,string alphabet, int alphabetlaenge,
-		TCPclient c, string partofpwd,int number , int counter, bool &pfound)
+}/**
+
+	/brief Bruteforce ist eine Funktion für die automatische Testung aller möglichen Passwörter. Die Passwortlänge wird durch die Variable
+	 * length übergeben und die Alphbezgröße wird durch alphabetlaenge übergeben.
+*/
+
+int bruteforce(int loc_var_length,string loc_var_alphabet, int loc_var_alphabetlaenge,
+		TCPclient c, string loc_var_partofpwd,int loc_var_number , int loc_var_counter, bool &loc_var_pfound)
 {
-	string lang= "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
-	number++;
-	stringstream pwd;
-	string newpwd;
-	string serverans;
-	for(int i=0;i<alphabetlaenge;i++)
+	string loc_var_lang= "ABCDEFGHIJKLMNOPQRTSTUVWXYZabcdefghijklmopqrstuvwxyz0123456789";
+	loc_var_number++;
+	stringstream loc_var_pwd;
+	string loc_var_newpwd;
+	string loc_var_serverans;
+	for(int i=0;i<loc_var_alphabetlaenge;i++)
 	{
-		newpwd = partofpwd+lang[i];
+		loc_var_newpwd = loc_var_partofpwd+loc_var_lang[i];	//Buchstaben addition
 
-		pwd<<"GUESSSAFE["<<newpwd<<"]";
-		//pwd<<"GUESSUNSAFE["<<newpwd<<"]";
-		c.sendData(pwd.str());
-		counter++;
-		pwd.str("");
-		serverans=c.receive(16);
-		cout <<serverans<<endl;
-
-
-
-	if(serverans=="RIGHT")
-	{
-		pfound=1;
-		cout<<"das erratende Passwort ist : \t"<<newpwd<<endl;
-		cout <<"Gebrauchte Versuche: \t"<<counter<<"."<<endl;
+		loc_var_pwd<<"GUESSSAFE["<<loc_var_newpwd<<"]";
+		//pwd<<"GUESSUNSAFE["<<loc_var_newpwd<<"]";
+		c.sendData(loc_var_pwd.str());
+		loc_var_counter++;
+		loc_var_pwd.str("");
+		loc_var_serverans=c.receive(16);
+		cout <<loc_var_serverans<<endl;
 
 
-		return counter;
 
-	}
-	if(length<=number)
-	{
-
-	}
-	else
-	{
-		counter =bruteforce(length,alphabet,alphabetlaenge,c,partofpwd+lang[i],number,counter,pfound);
-		if(pfound)
+		if(loc_var_serverans=="RIGHT")	//Rückgabe wenn das Passwort erraten worden ist
 		{
-			return counter;
+			loc_var_pfound=1;
+			cout<<"das erratende Passwort ist : \t"<<loc_var_newpwd<<endl;
+			cout <<"Gebrauchte Versuche: \t"<<loc_var_counter<<"."<<endl;
+
+
+			return loc_var_counter;
+
 		}
-	}
+
+		if(loc_var_length<=loc_var_number)
+		{
+
+		}
+
+		else
+		{
+			loc_var_counter =bruteforce(loc_var_length,loc_var_alphabet,loc_var_alphabetlaenge,c,loc_var_partofpwd+loc_var_lang[i],loc_var_number,loc_var_counter,loc_var_pfound);
+			if(loc_var_pfound)
+			{
+			return loc_var_counter;
+			}
+		}
 
 
 	}
-	return counter;
+	return loc_var_counter;
 }
 
 
