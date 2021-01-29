@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
 	globe_const_alphabetlaenge=(unsigned short) atoi(argv[4]);
 	globe_const_pwdlaenge = (unsigned short) atoi(argv[5]);
 
-	string wahl;
+	string globe_wahl;
 	cout << " Willkommen im Client ! " << endl << "Bitte geben sie den Port des Servers ein:  ";
 	cin >> globe_const_serverport;
 
@@ -144,11 +144,11 @@ int main(int argc, char *argv[]) {
 					cout<<"Passwortnummer: \t"<<loc_var_number<<" Länge: \t"<<globe_const_pwdlaenge<<" Alphabetlänge \t"<<globe_const_alphabetlaenge<<" Versuche \t"<<loc_var_versuche<<endl;
 
 					cout <<"Wollen sie ein neues PASSWORT erraten JA oder das PROGRAMM beenden NEIN"<<endl;
-					cin>> wahl;
+					cin>> globe_wahl;
 
 					f<<globe_const_pwdlaenge<<"\t\t"<<globe_const_alphabetlaenge<<"\t\t"<<loc_var_versuche<<"\n ";
 
-					if((wahl=="JA")||(wahl=="ja"))
+					if((globe_wahl=="JA")||(globe_wahl=="ja"))
 					{
 						goto begin;	// Springt an den Anfang des Programms zur wiederholten Ausführung
 					}

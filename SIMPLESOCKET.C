@@ -112,8 +112,8 @@ bool TCPclient::sendData(string data){
 Receive data from the connected host
 */
 string TCPclient::receive(int size=512){
-	char buffer[size];
-	string reply;
+	char buffer[size]="";
+	string reply ="";
 
 	//Receive a reply from the server
 	if( recv(sock , buffer , sizeof(buffer) , 0) < 0){

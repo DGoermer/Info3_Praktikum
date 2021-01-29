@@ -99,9 +99,9 @@ protected:
 	string myResponse (string input);
 
 };
-string pwd="";
+string globe_pwd="";
 int serverport  =2034;
-BlackBoxSafe* BBS =nullptr;
+BlackBoxSafe* ptr_BBS =nullptr;
 int main(){
 
 
@@ -119,102 +119,102 @@ int main(){
 
 
 string myTCPserver::myResponse(string input){
-	string response("UNKNOWN COMMAND");
-	bool success = false;
-	int a,b;
-	int strlenght=0;
-	string guess="";
+	string loc_var_response("UNKNOWN COMMAND");
+	bool loc_var_success = false;
+	int loc_var_a,loc_var_b;
+	int loc_var_strlenght=0;
+	string loc_var_guess="";
 
 
 
 	if (input.compare(0,4,"PWD[") == 0){
 		//password received
-		char pwd[32];
+		char loc_var_pwd[32];
 
-		sscanf(input.c_str(),"PWD[%s]",pwd);					// Ab hier wird das Passwort aus der Übertragung gefiltert
+		sscanf(input.c_str(),"PWD[%s]",loc_var_pwd);					// Ab hier wird das Passwort aus der Übertragung gefiltert
 		//pwd[input.size()- 1 ] = '\0';
-		strlenght = strlen(pwd)-1;
-		cout<< "pwd länge:" <<strlenght << endl;
-		pwd[strlenght]='\0';
-		cout << "pwd received : '" <<pwd << "'" << endl;
+		loc_var_strlenght = strlen(loc_var_pwd)-1;
+		cout<< "pwd länge:" <<loc_var_strlenght << endl;
+		loc_var_pwd[loc_var_strlenght]='\0';
+		cout << "pwd received : '" <<loc_var_pwd << "'" << endl;
 
-		success = rand ()%2;									// Ab hier nur Random Success oder FAILED
-		if(success){response = string("SUCCESS");}
+		loc_var_success = rand ()%2;									// Ab hier nur Random Success oder FAILED
+		if(loc_var_success){loc_var_response = string("SUCCESS");}
 		else {
-			response= string ( "FAILED");}
+			loc_var_response= string ( "FAILED");}
 	}else if ( input.compare ( 0,7,"NEWBOX[")== 0 ){
 
 		// init new password guessing game
 		// ...
-		sscanf ( input.c_str(),"NEWBOX[%d,%d]",&a,&b);
+		sscanf ( input.c_str(),"NEWBOX[%d,%d]",&loc_var_a,&loc_var_b);
 
-		cout << "pwd lenght = "  << a << " alphabet lenght= " <<b <<endl;
+		cout << "pwd lenght = "  << loc_var_a << " alphabet lenght= " <<loc_var_b <<endl;
 
-		response = string ("OKAY");}
+		loc_var_response = string ("OKAY");}
 
 	else if ( input.compare ( 0,10,"NEWUNSAFE[")== 0 ){
-		sscanf ( input.c_str(),"NEWUNSAFE[%d,%d]",&a,&b);
+		sscanf ( input.c_str(),"NEWUNSAFE[%d,%d]",&loc_var_a,&loc_var_b);
 
-	BlackBoxUnsafe bbu (a,b);
-	pwd=bbu.pwd_;
+	BlackBoxUnsafe ptr_bbu (loc_var_a,loc_var_b);
+	globe_pwd=ptr_bbu.pwd_;
 
-	cout <<" Länge des PWD:" << a <<  "    Alphabet:" << b << endl
-			<<"Das generierte PWD:    " <<pwd << endl << endl << endl ;
+	cout <<" Länge des PWD:" << loc_var_a <<  "    Alphabet:" << loc_var_b << endl
+			<<"Das generierte PWD:    " <<globe_pwd << endl << endl << endl ;
 
-	response= string("Generiert.");
+	loc_var_response= string("Generiert.");
 	}
 
 
 	else if ( input.compare ( 0,8,"NEWSAFE[")== 0 ){
-			sscanf ( input.c_str(),"NEWSAFE[%d,%d]",&a,&b);
-			delete BBS;
-		BBS= new BlackBoxSafe(a,b);
-		cout << " das PWD :" << BBS->pwd_;
+			sscanf ( input.c_str(),"NEWSAFE[%d,%d]",&loc_var_a,&loc_var_b);
+			delete ptr_BBS;
+		ptr_BBS= new BlackBoxSafe(loc_var_a,loc_var_b);
+		cout << " das PWD :" << ptr_BBS->pwd_;
 
 
-		cout <<" Länge des PWD:" << a <<  "    Alphabet:" << b << endl
-				<<"Der generierte SHA:    " <<BBS->BlackBoxSafe_sha << endl << endl << endl ;
+		cout <<" Länge des PWD:" << loc_var_a <<  "    Alphabet:" <<loc_var_b << endl
+				<<"Der generierte SHA:    " <<ptr_BBS->BlackBoxSafe_sha << endl << endl << endl ;
 
-		response= string("Generiert.");
+		loc_var_response= string("Generiert.");
 	//TASK1::demoTASK1_01();
 }
 
 
 	else if (input.compare(0,10,"GUESSSAFE[") == 0){
-		char guess [32]="";
-				sscanf(input.c_str(),"GUESSSAFE[%s]",guess);
-				strlenght = strlen(guess)-1;
+		char local_guess [32]="";
+				sscanf(input.c_str(),"GUESSSAFE[%s]",local_guess);
+				loc_var_strlenght = strlen(local_guess)-1;
 
-						guess[strlenght]='\0';
+						local_guess[loc_var_strlenght]='\0';
 
 
-			cout <<" Das eingegenangende PWD : \t" << guess ;
+			cout <<" Das eingegangende PWD : \t" << local_guess ;
 
-			response= BBS->check(guess);
+			loc_var_response= ptr_BBS->check(local_guess);
 
 	}
 
 	else if (input.compare(0,12,"GUESSUNSAFE[") == 0){
 		char guess [32]="";
 		sscanf(input.c_str(),"GUESSUNSAFE[%s]",guess);
-		strlenght = strlen(guess)-1;
+		loc_var_strlenght = strlen(guess)-1;
 
-				guess[strlenght]='\0';
+				guess[loc_var_strlenght]='\0';
 
-				if(guess==pwd){
+				if(guess==globe_pwd){
 				cout << "RICHTIG " << endl ;
-				response=string("RIGHT");
+				loc_var_response=string("RIGHT");
 				}
 				else{cout << "FALSCH" << endl;
-				response= string("WRONG");
+				loc_var_response= string("WRONG");
 				}
 	}
 
 
 	else {
-		response = string("UNKOWN COMMAND" ) ;
+		loc_var_response = string("UNKOWN COMMAND" ) ;
 	}
-	return response;	}
+	return loc_var_response;	}
 
 
 

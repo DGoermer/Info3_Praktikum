@@ -67,10 +67,10 @@ string BlackBoxUnsafe::randomPwd(int l){
 
 string BlackBoxSafe::check(string pwd){
 
-	string inputpwd = sha256 (pwd);
+	string loc_var_inputpwd = sha256 (pwd);
 
 
-		if(BlackBoxSafe_sha.compare(inputpwd) == 0){
+		if(BlackBoxSafe_sha.compare(loc_var_inputpwd) == 0){
 				return string("RIGHT");}
 
 
